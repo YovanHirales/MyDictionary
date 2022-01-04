@@ -8,7 +8,7 @@ const ListWords = () => {
 
 	const getWords = async () => {
 		try {
-			const response = await fetch('http://localhost:5000/words');
+			const response = await fetch('/words');
 
 			//parse received data
 			const wordAndDef = await response.json();
@@ -29,11 +29,11 @@ const ListWords = () => {
 	const onDelete = async (id) => {
 		try {
 			if (id) {
-				const deletedWord = await fetch(`http://localhost:5000/words/${id}`, {
+				const deletedWord = await fetch(`/words/${id}`, {
 					method: 'DELETE',
 				});
 			} else {
-				const deletedWord = await fetch(`http://localhost:5000/words/`, {
+				const deletedWord = await fetch(`/words/`, {
 					method: 'DELETE',
 				});
 

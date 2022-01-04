@@ -3,10 +3,20 @@ const app = express();
 const cors = require('cors');
 const pool = require('./db'); //connect database to server
 const fetch = require('node-fetch');
+const { ECDH } = require('crypto');
 require('dotenv').config();
+const path = require('path');
+const PORT = process.env.PORT || 5000;
 
 app.use(cors()); //allow apps on different domains to interact
 app.use(express.json()); //req.body
+
+app.use(express.static('./client/build'));
+
+if (process.env.NODE_ENV === 'production') {
+	//serve static files
+	app.use(express.static(path.join(__dirname, 'client/build')));
+}
 
 //   ROUTES   //
 
@@ -96,6 +106,11 @@ app.delete('/words', async (req, res) => {
 	res.json('All words have been deleted');
 });
 
-app.listen(5000, () => {
-	console.log('Listening on port 5000...');
+//catch all
+app.get('*', (req, res) => {
+	res.sendFile(path.join(__dirname, 'client/build/index.html'));
+});
+
+app.listen(PORT, () => {
+	console.log(`Listening on port ${PORT}...`);
 });

@@ -8,14 +8,11 @@ const EditDef = (props) => {
 		try {
 			entry.definition = def;
 
-			const saveData = await fetch(
-				`http://localhost:5000/words/${entry.word_id}`,
-				{
-					method: 'PUT',
-					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify(entry),
-				}
-			);
+			const saveData = await fetch(`/words/${entry.word_id}`, {
+				method: 'PUT',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(entry),
+			});
 
 			props.getWords();
 		} catch (err) {

@@ -11,7 +11,7 @@ const Input = (props) => {
 				const body = { word: wordArr[i] };
 
 				if (body) {
-					const response = await fetch('http://localhost:5000/words', {
+					const response = await fetch('/words', {
 						method: 'POST',
 						headers: { 'Content-Type': 'application/json' },
 						body: JSON.stringify(body),
