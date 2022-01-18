@@ -3,10 +3,9 @@ const app = express();
 const cors = require('cors');
 const pool = require('./db'); //connect database to server
 const fetch = require('node-fetch');
-const { ECDH } = require('crypto');
-require('dotenv').config();
 const path = require('path');
 const PORT = process.env.PORT || 5000;
+require('dotenv').config();
 
 app.use(cors()); //allow apps on different domains to interact
 app.use(express.json()); //req.body
