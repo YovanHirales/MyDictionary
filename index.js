@@ -10,7 +10,7 @@ require('dotenv').config();
 app.use(cors()); //allow apps on different domains to interact
 app.use(express.json()); //req.body
 
-app.use(express.static('./client/build'));
+// app.use(express.static('./client/build'));
 
 if (process.env.NODE_ENV === 'production') {
 	//serve static files
@@ -50,9 +50,8 @@ app.post('/words', async (req, res) => {
 //READ
 app.get('/words', async (req, res) => {
 	try {
-		console.log('here');
 		const getAllWords = await pool.query('SELECT * FROM words');
-		console.log('now here');
+
 		res.json(getAllWords.rows);
 	} catch (err) {
 		console.error(err.message);
