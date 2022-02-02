@@ -1,13 +1,17 @@
-import React, { Fragment } from 'react';
-import ListWords from './components/listwords';
+import React from 'react';
+import { Container } from '@mui/material';
+import Words from './components/Words/Words';
+import Input from './components/Input/WordInput';
 
 function App() {
 	return (
-		<Fragment>
-			<div className='container'>
-				<ListWords />
-			</div>
-		</Fragment>
+		<Container>
+			<h1 className='text-center mt-5'>My Dictionary</h1>
+			<Words />
+			<h6>
+				<a href='https://www.wordnik.com/'>Made using Wordnik API</a>
+			</h6>
+		</Container>
 	);
 }
 

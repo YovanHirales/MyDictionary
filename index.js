@@ -22,25 +22,35 @@ if (process.env.NODE_ENV === 'production') {
 //CREATE
 app.post('/words', async (req, res) => {
 	try {
-		//grab word from user
-		const { word } = req.body;
+		//grab words
+		const { words } = req.body;
+		console.log(words);
+		//separate words
+		const wordArr = words.toLowerCase().split(' ');
 
-		//grab definition
-		const response = await fetch(
-			`https://dictionaryapi.com/api/v3/references/collegiate/json/${word}?key=${process.env.DICT_KEY}`
-		);
-		const definition = await response.json();
+		//iterate over words
+		for (let i = 0; i < wordArr.length; i++) {
+			//grab definition
+			const response = await fetch(
+				`https://api.wordnik.com/v4/word.json/${wordArr[i]}/definitions?limit=2&includeRelated=false&sourceDictionaries=wordnet&useCanonical=false&includeTags=false&api_key=${process.env.DICT_KEY}`
+			);
+			//parse data
+			const json = await response.json();
 
-		//insert word and def into database
-		const newWord = await pool.query(
-			'INSERT INTO words(word, definition) VALUES($1, $2) RETURNING *',
-			[
-				word,
-				definition[0].shortdef.filter((def, index) => index < 3).join(' || '),
-			]
-		);
+			//insert word and def into database
+			const newWord = await pool.query(
+				'INSERT INTO words(word, part_of_speech_1, definition_1, part_of_speech_2, definition_2) VALUES($1, $2, $3, $4, $5) RETURNING *',
+				[
+					json[0].word,
+					json[0].partOfSpeech,
+					json[0].text,
+					json.length > 1 ? json[1].partOfSpeech : null,
+					json.length > 1 ? json[1].text : null,
+				]
+			);
+		}
 
-		res.json(newWord.rows[0]);
+		res.json('Word/s added to database');
 	} catch (err) {
 		console.error(err.message);
 		res.json("Couldn't find your word");
@@ -76,11 +86,17 @@ app.get('/words/:id', async (req, res) => {
 app.put('/words/:id', async (req, res) => {
 	try {
 		const { id } = req.params;
-		const { word, definition } = req.body;
+		const {
+			word,
+			part_of_speech_1,
+			definition_1,
+			part_of_speech_2,
+			definition_2,
+		} = req.body;
 
 		const updatedEntry = await pool.query(
-			'UPDATE words SET word=$1, definition=$2 WHERE word_id=$3 RETURNING *',
-			[word, definition, id]
+			'UPDATE words SET word=$1, part_of_speech_1=$2, definition_1=$3, part_of_speech_2=$4, definition_2=$5 WHERE word_id=$6 RETURNING *',
+			[word, part_ofspeech_1, definition_1, part_of_speech_2, definition_2, id]
 		);
 
 		res.json(updatedEntry.rows[0]);
