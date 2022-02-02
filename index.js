@@ -43,8 +43,8 @@ app.post('/words', async (req, res) => {
 					json[0].word,
 					json[0].partOfSpeech,
 					json[0].text,
-					json.length > 1 ? json[1].partOfSpeech : null,
-					json.length > 1 ? json[1].text : null,
+					json.length > 1 ? json[1].partOfSpeech : '',
+					json.length > 1 ? json[1].text : '',
 				]
 			);
 		}
@@ -94,7 +94,7 @@ app.put('/words/:id', async (req, res) => {
 		} = req.body;
 
 		const updatedEntry = await pool.query(
-			'UPDATE words SET word=$1, part_of_speech_1=$2, definition_1=$3, part_of_speech_2=$4, definition_2=$5 WHERE word_id=$6 RETURNING *',
+			'UPDATE words SET word=$1, part_of_speech_1=$2, definition_1=$3, part_of_speech_2=$4, definition_2=$5 WHERE word_id=$6',
 			[word, part_of_speech_1, definition_1, part_of_speech_2, definition_2, id]
 		);
 

@@ -12,7 +12,7 @@ const Input = ({ getWords }) => {
 			e.preventDefault();
 
 			const body = { words: input };
-			await fetch('http://localhost:5000/words', {
+			await fetch('/words', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify(body),
@@ -27,7 +27,7 @@ const Input = ({ getWords }) => {
 
 	const handleDelete = async () => {
 		try {
-			await fetch('http://localhost:5000/words', {
+			await fetch('/words', {
 				method: 'DELETE',
 			});
 

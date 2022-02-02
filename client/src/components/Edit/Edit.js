@@ -27,7 +27,7 @@ export default function FormDialog({ word, getWords }) {
 
 		try {
 			const body = word;
-			await fetch(`http://localhost:5000/words/${word.word_id}`, {
+			await fetch(`/words/${word.word_id}`, {
 				method: 'PUT',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify(body),

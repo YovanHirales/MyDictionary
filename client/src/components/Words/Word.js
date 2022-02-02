@@ -19,7 +19,7 @@ const Word = ({ word, getWords }) => {
 
 	// handle delete button click
 	const deleteItem = async () => {
-		await fetch(`http://localhost:5000/words/${word.word_id}`, {
+		await fetch(`/words/${word.word_id}`, {
 			method: 'DELETE',
 		});
 
