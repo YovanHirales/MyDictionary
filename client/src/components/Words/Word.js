@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import {
 	Card,
@@ -16,37 +16,6 @@ import FormDialog from '../Edit/Edit';
 const Word = ({ word, getWords }) => {
 	//import custom css
 	const classes = useStyles();
-
-	const [open, setOpen] = useState(false);
-
-	const handleEdit = () => {
-		setOpen(true);
-	};
-
-	const handleClose = () => {
-		setOpen(false);
-	};
-
-	const handleSave = async () => {
-		try {
-			setOpen(false);
-
-			const body = {
-				word: word.word,
-				part_of_speech_1: word.part_of_speech_1,
-				definition_1: word.definition_1,
-				part_of_speech_2: word.part_of_speech_2,
-				definition_2: word.definition_2,
-			};
-			await fetch('http://localhost:5000/words', {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify(body),
-			});
-		} catch (err) {
-			console.error(err.message);
-		}
-	};
 
 	// handle delete button click
 	const deleteItem = async () => {
@@ -100,13 +69,7 @@ const Word = ({ word, getWords }) => {
 					</a>
 				</Button>
 				<div className={classes.rightButtons}>
-					<FormDialog
-						open={open}
-						handleEdit={handleEdit}
-						handleClose={handleClose}
-						word={word}
-						getWords={getWords}
-					/>
+					<FormDialog word={word} getWords={getWords} />
 					<IconButton onClick={deleteItem}>
 						<DeleteIcon />
 					</IconButton>

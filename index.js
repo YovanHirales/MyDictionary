@@ -24,7 +24,6 @@ app.post('/words', async (req, res) => {
 	try {
 		//grab words
 		const { words } = req.body;
-		console.log(words);
 		//separate words
 		const wordArr = words.toLowerCase().split(' ');
 
@@ -96,7 +95,7 @@ app.put('/words/:id', async (req, res) => {
 
 		const updatedEntry = await pool.query(
 			'UPDATE words SET word=$1, part_of_speech_1=$2, definition_1=$3, part_of_speech_2=$4, definition_2=$5 WHERE word_id=$6 RETURNING *',
-			[word, part_ofspeech_1, definition_1, part_of_speech_2, definition_2, id]
+			[word, part_of_speech_1, definition_1, part_of_speech_2, definition_2, id]
 		);
 
 		res.json(updatedEntry.rows[0]);

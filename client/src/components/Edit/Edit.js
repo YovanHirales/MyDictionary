@@ -9,15 +9,36 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 
-export default function FormDialog({
-	handleEdit,
-	handleClose,
-	handleSave,
-	open,
-	word,
-	getWords,
-}) {
-	const [formData, updateFormData] = useState();
+export default function FormDialog({ word, getWords }) {
+	const handleChange = (e) => {
+		word[e.target.name] = e.target.value;
+	};
+
+	const [open, setOpen] = useState(false);
+	const handleEdit = () => {
+		setOpen(true);
+	};
+	const handleClose = () => {
+		setOpen(false);
+	};
+
+	const handleSave = async (e) => {
+		e.preventDefault();
+
+		try {
+			const body = word;
+			await fetch(`http://localhost:5000/words/${word.word_id}`, {
+				method: 'PUT',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(body),
+			});
+
+			getWords();
+			setOpen(false);
+		} catch (err) {
+			console.error(err.message);
+		}
+	};
 
 	return (
 		<Fragment>
@@ -26,58 +47,58 @@ export default function FormDialog({
 			</IconButton>
 			<div>
 				<Dialog open={open} onClose={handleClose}>
-					<DialogTitle>Edit</DialogTitle>
+					<DialogTitle sx={{ width: '50vw' }}>Edit</DialogTitle>
 					<form onSubmit={handleSave}>
 						<DialogContent>
 							<DialogContentText>Word:</DialogContentText>
 							<TextField
 								margin='dense'
-								id='name'
 								defaultValue={word.word}
 								type='text'
+								name='word'
 								fullWidth
 								variant='standard'
-								sx={{ width: '50vw' }}
+								onChange={handleChange}
 							/>
 							<DialogContentText>Part Of Speech #1:</DialogContentText>
 							<TextField
 								margin='dense'
-								id='name'
 								defaultValue={word.part_of_speech_1}
 								type='text'
+								name='part_of_speech_1'
 								fullWidth
 								variant='standard'
-								sx={{ width: '50vw' }}
+								onChange={handleChange}
 							/>
 							<DialogContentText>Definition #1:</DialogContentText>
 							<TextField
 								margin='dense'
-								id='name'
 								defaultValue={word.definition_1}
-								type='email'
+								type='text'
+								name='definition_1'
 								fullWidth
 								variant='standard'
-								sx={{ width: '50vw' }}
+								onChange={handleChange}
 							/>
 							<DialogContentText>Part Of Speech #2:</DialogContentText>
 							<TextField
 								margin='dense'
-								id='name'
 								defaultValue={word.part_of_speech_2}
 								type='text'
+								name='definition_2'
 								fullWidth
 								variant='standard'
-								sx={{ width: '50vw' }}
+								onChange={handleChange}
 							/>
 							<DialogContentText>Definition #2:</DialogContentText>
 							<TextField
 								margin='dense'
-								id='name'
 								defaultValue={word.definition_2}
-								type='email'
+								type='text'
+								name='part_of_speech_2'
 								fullWidth
 								variant='standard'
-								sx={{ width: '50vw' }}
+								onChange={handleChange}
 							/>
 						</DialogContent>
 						<DialogActions>

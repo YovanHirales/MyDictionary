@@ -31,7 +31,7 @@ const Words = () => {
 			<main className={classes.main}>
 				<Grid container direction='row' spacing={4} alignItems='stretch'>
 					{words.map((word) => (
-						<Grid item xs={12} md={6} lg={3}>
+						<Grid item xs={12} md={6} lg={4}>
 							<Word word={word} getWords={getWords} />
 						</Grid>
 					))}
