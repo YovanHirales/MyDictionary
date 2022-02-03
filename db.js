@@ -1,4 +1,4 @@
-const Pool = require('pg').Pool;
+const { Pool } = require('pg');
 require('dotenv').config();
 
 const devConfig = {
@@ -8,11 +8,13 @@ const devConfig = {
 	port: process.env.PG_PORT,
 };
 
-const proConfig = process.env.DATABASE_URL; //heroku address
-
-const pool = new Pool({
+const proConfig = {
 	connectionString:
-		process.env.NODE_ENV === 'production' ? proConfig : devConfig,
-});
+		'postgres://bujfpbrwuhsxdb:9937a9bb86d6d8ce04f6d50aa72e503749770aff5ec1a97b92833bfa201aeb7a@ec2-3-214-4-239.compute-1.amazonaws.com:5432/dj2p50scmg3le',
+}; //heroku address
+
+const pool = new Pool(
+	process.env.NODE_ENV === 'production' ? proConfig : devConfig
+);
 
 module.exports = pool;
