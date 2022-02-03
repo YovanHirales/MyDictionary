@@ -59,9 +59,9 @@ app.post('/words', async (req, res) => {
 //READ
 app.get('/words', async (req, res) => {
 	try {
-		const getAllWords = await pool.query('SELECT * FROM words;');
-		console.log(getAllWords);
-		res.json(getAllWords.rows);
+		const getAllWords = await pool.query('SELECT * FROM words');
+
+		res.json('Working');
 	} catch (err) {
 		console.error(err.message);
 	}
