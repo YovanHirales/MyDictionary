@@ -30,8 +30,8 @@ const Words = () => {
 			<Input getWords={getWords} />
 			<main className={classes.main}>
 				<Grid container direction='row' spacing={4} alignItems='stretch'>
-					{words.map((word) => (
-						<Grid item xs={12} md={6} lg={4}>
+					{words.map((word, index) => (
+						<Grid item xs={12} md={6} lg={4} key={index}>
 							<Word word={word} getWords={getWords} />
 						</Grid>
 					))}
