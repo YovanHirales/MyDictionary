@@ -8,12 +8,11 @@ const devConfig = {
 	port: process.env.PG_PORT,
 };
 
-const proConfig = {
-	connectionString: process.env.DATABASE_URL, //heroku address
-};
+const proConfig = process.env.DATABASE_URL; //heroku address
 
-const pool = new Pool(
-	process.env.NODE_ENV === 'production' ? proConfig : devConfig
-);
+const pool = new Pool({
+	connectionString:
+		process.env.NODE_ENV === 'production' ? proConfig : devConfig,
+});
 
 module.exports = pool;
