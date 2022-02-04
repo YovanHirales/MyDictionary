@@ -51,7 +51,7 @@ app.post('/words', async (req, res) => {
 
 		res.json('Word/s added to database');
 	} catch (err) {
-		console.error(err.message);
+		console.log(err.message);
 		res.json("Couldn't find your word");
 	}
 });
@@ -59,11 +59,11 @@ app.post('/words', async (req, res) => {
 //READ
 app.get('/words', async (req, res) => {
 	try {
-		const getAllWords = await pool.query('SELECT * FROM words;');
+		// const getAllWords = await pool.query('SELECT * FROM words;');
 
-		res.json(getAllWords.rows);
+		res.json('here');
 	} catch (err) {
-		console.error(err.message);
+		console.log(err.message);
 	}
 });
 
