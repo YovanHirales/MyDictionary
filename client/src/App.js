@@ -1,7 +1,6 @@
 import React from 'react';
 import { Container } from '@mui/material';
 import Words from './components/Words/Words';
-import Input from './components/Input/WordInput';
 
 function App() {
 	return (
