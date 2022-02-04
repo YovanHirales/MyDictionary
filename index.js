@@ -30,11 +30,10 @@ app.post('/words', async (req, res) => {
 		for (let i = 0; i < wordArr.length; i++) {
 			//grab definition
 			const response = await fetch(
-				`https://api.wordnik.com/v4/word.json/${wordArr[i]}/definitions?limit=2&includeRelated=false&sourceDictionaries=wordnet&useCanonical=false&includeTags=false&api_key=${process.env.DICT_KEY}`
+				`https://api.wordnik.com/v4/word.json/${wordArr[i]}/definitions?limit=2&includeRelated=false&sourceDictionaries=wordnet&useCanonical=false&includeTags=false&api_key=byb5j30n2v24iwrz9zpds4yywc1n39dzyrqfaifyfabl2adkc`
 			);
 			//parse data
 			const json = await response.json();
-			res.json(json);
 			//insert word and def into database
 			await pool.query(
 				'INSERT INTO words(word, part_of_speech_1, definition_1, part_of_speech_2, definition_2) VALUES($1, $2, $3, $4, $5);',
@@ -47,6 +46,8 @@ app.post('/words', async (req, res) => {
 				]
 			);
 		}
+
+		res.json('Word/s added!');
 	} catch (err) {
 		console.log(err.message);
 		res.json("Couldn't find your word");
