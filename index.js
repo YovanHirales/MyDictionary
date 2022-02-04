@@ -24,18 +24,20 @@ app.post('/words', async (req, res) => {
 	try {
 		//grab words
 		const { words } = req.body;
+		console.log('1');
 		//separate words
 		const wordArr = words.toLowerCase().split(' ');
-
+		console.log('2');
 		//iterate over words
 		for (let i = 0; i < wordArr.length; i++) {
 			//grab definition
 			const response = await fetch(
 				`https://api.wordnik.com/v4/word.json/${wordArr[i]}/definitions?limit=2&includeRelated=false&sourceDictionaries=wordnet&useCanonical=false&includeTags=false&api_key=${process.env.DICT_KEY}`
 			);
+			console.log('3');
 			//parse data
 			const json = await response.json();
-
+			console.log('4');
 			//insert word and def into database
 			const newWord = await pool.query(
 				'INSERT INTO words(word, part_of_speech_1, definition_1, part_of_speech_2, definition_2) VALUES($1, $2, $3, $4, $5);',
