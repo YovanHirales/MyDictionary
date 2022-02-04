@@ -4,6 +4,7 @@ const cors = require('cors');
 const pool = require('./db'); //connect database to server
 const fetch = require('node-fetch');
 const path = require('path');
+const client = require('pg/lib/native/client');
 const PORT = process.env.PORT || 5000;
 require('dotenv').config();
 
@@ -59,9 +60,12 @@ app.post('/words', async (req, res) => {
 //READ
 app.get('/words', async (req, res) => {
 	try {
-		const getAllWords = await pool.query('SELECT * FROM words');
+		client.connect();
 
-		res.json('Working');
+		const getAllWords = await client.query('SELECT * FROM words');
+
+		res.json(getAllWords);
+		client.end();
 	} catch (err) {
 		console.error(err.message);
 	}
