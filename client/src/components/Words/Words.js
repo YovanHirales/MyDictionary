@@ -11,7 +11,6 @@ const Words = () => {
 	const getWords = async () => {
 		try {
 			const response = await fetch('/words');
-
 			const parseRes = await response.json();
 
 			setWords(parseRes.reverse());
