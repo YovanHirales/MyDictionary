@@ -12,6 +12,7 @@ const Words = () => {
 		try {
 			const response = await fetch('/words');
 			const parseRes = await response.json();
+			console.log(parseRes);
 
 			setWords(parseRes.reverse());
 		} catch (error) {
