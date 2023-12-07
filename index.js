@@ -7,7 +7,7 @@ const fetch = require('node-fetch');
 const PORT = process.env.NODE_ENV === 'production' ? process.env.PORT : 5001;
 require('dotenv').config();
 
-app.use(cors({ origin: 'http://localhost:3000' })); //allow apps on different domains to interact
+app.use(cors()); //allow apps on different domains to interact
 app.use(express.json()); //req.body
 
 if (process.env.NODE_ENV === 'production') {
@@ -119,7 +119,6 @@ app.delete('/words', async (req, res) => {
 //catch all
 app.get('*', (req, res) => {
 	res.sendFile(path.join(__dirname, 'client/build/index.html'));
-	console.log('here');
 });
 
 app.listen(PORT, () => {
