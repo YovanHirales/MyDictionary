@@ -4,7 +4,7 @@ const cors = require('cors');
 const pool = require('./db'); //connect database to server
 const path = require('path');
 const fetch = require('node-fetch');
-const PORT = process.env.NODE_ENV === 'production' ? process.env.PORT : 5001;
+const PORT = process.env.NODE_ENV === 'production' ? process.env.PORT : 8000;
 require('dotenv').config();
 
 app.use(cors()); //allow apps on different domains to interact
@@ -54,7 +54,7 @@ app.post('/words', async (req, res) => {
 
 //READ
 app.get('/words', async (req, res) => {
-	console.log('Here');
+	console.log('Here1');
 	try {
 		const getAllWords = await pool.query('SELECT * FROM words;');
 		res.json(getAllWords.rows);
