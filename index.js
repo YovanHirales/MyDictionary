@@ -62,9 +62,13 @@ app.get('/words', async (req, res) => {
 		console.log('Here8');
 		res.json(getAllWords.rows);
 		console.log('Here9');
-		client.release();
 	} catch (err) {
+		res.status(500).json({ error: err.message });
 		console.log(err.message);
+	} finally {
+		if (client) {
+			client.release();
+		}
 	}
 });
 
