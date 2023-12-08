@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const { pool } = require('./db.js'); //connect database to server
+const pool = require('./db.js'); //connect database to server
 const path = require('path');
 const fetch = require('node-fetch');
 const PORT = process.env.NODE_ENV === 'production' ? process.env.PORT : 8000;
@@ -55,20 +55,11 @@ app.post('/words', async (req, res) => {
 //READ
 app.get('/words', async (req, res) => {
 	try {
-		console.log('Here6');
-		const client = await pool.connect();
-		console.log('Here7');
-		const getAllWords = await client.query('SELECT * FROM words;');
-		console.log('Here8');
+		const getAllWords = await pool.query('SELECT * FROM words;');
 		res.json(getAllWords.rows);
-		console.log('Here9');
 	} catch (err) {
 		res.status(500).json({ error: err.message });
 		console.log(err.message);
-	} finally {
-		if (client) {
-			client.release();
-		}
 	}
 });
 
