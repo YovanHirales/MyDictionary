@@ -22,7 +22,6 @@ app.post('/words', async (req, res) => {
 	try {
 		//grab words
 		const { words } = req.body;
-		console.log(words);
 		//separate words
 		const wordArr = words.toLowerCase().split(' ');
 		//iterate over words
