@@ -1,0 +1,8 @@
+A personal dictionary web application.
+This application takes in words as inputs and creates cards of the words along with their definition, pulled from Wordnik's dictionary API.
+
+To run this program locally, open the terminal inside the root directory of the program and type in "npm start" to start the node server.
+Then in a seperate terminal navigate to the client directory and type in "npm start" again this time to start the REACT application.
+You will also need the postgres application running on port 5432. Inside the root directory there is a file called database.sql which contains the commands to set up the database.
+
+Alternatively, you can view a live demo of the website here: https://mydictionary-d5eae45bfa0c.herokuapp.com/

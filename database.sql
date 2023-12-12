@@ -1,4 +1,4 @@
--- CREATE DATABASE wordlist;
+CREATE DATABASE wordlist;
 
 CREATE TABLE words(
     word_id SERIAL PRIMARY KEY,
