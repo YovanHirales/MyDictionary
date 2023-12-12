@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const cors = require('cors');
+const cors = require('cors'); //allows multiple servers to talk to eachother
 const pool = require('./db.js'); //connect database to server
 const path = require('path');
 const fetch = require('node-fetch');
