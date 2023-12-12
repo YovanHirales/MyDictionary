@@ -78,6 +78,7 @@ app.get('/words/:id', async (req, res) => {
 		console.error(err.message);
 	}
 });
+
 //UPDATE
 app.put('/words/:id', async (req, res) => {
 	try {
