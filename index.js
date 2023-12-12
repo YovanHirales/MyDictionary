@@ -32,9 +32,8 @@ app.post('/words', async (req, res) => {
 			);
 			//parse data
 			const json = await response.json();
+
 			//insert word and def into database
-			console.log(json);
-			console.log(json[0]);
 			await pool.query(
 				'INSERT INTO words(word, part_of_speech_1, definition_1, part_of_speech_2, definition_2) VALUES($1, $2, $3, $4, $5);',
 				[
